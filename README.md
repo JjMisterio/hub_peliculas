@@ -1,18 +1,25 @@
-Title:
+# MaratON
+## Jesús Isaac Estrada Ramírez
 
-Description:
+### * Descripción:
 
-Screenshots:
+---
+### * Instrucciones:
 
-Mockup:
+---
+### * Mockup:
+![alt text](/assets/mockup.png "Mockup inicial del proyecto desplegado en la ventana de login e index de nuestro hub de peliculas")
+---
+### * Capturas de pantalla:
 
-Instructions:
+---
+### * ¿Cómo lo hice?
 
-How did I do it?
+---
+### * Errores:
 
-Bugs:
-
-Retrospective:
-What did I do right?
-What didn't go well?
-What can I do differently?
+---
+### * Retrospectiva:
+⋅⋅⋅__¿Qué hice bien?__
+⋅⋅⋅__¿Qué no salió bien?__
+⋅⋅⋅__¿Qué puedo hacer diferente?__
