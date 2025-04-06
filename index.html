@@ -35,22 +35,33 @@
             <button class="btn btn-dark mx-2">Tendencias</button>
             <button class="btn btn-dark mx-2">Favoritos</button>
         </nav>
+
         <div class="container mt-4">
-            <div id="catalog" class="vista">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="card mb-3">
-                            <img src="https://placehold.co/140x200" class="card-img-top" alt="Pelicula">
-                            <div class="card-body">
-                                <h4>Lorem ipsum dolor sit.</h4>
-                                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Natus illum aperiam aliquam tempore nobis repudiandae?</p>
-                                <button class="btn btn-primary">Ver</button>
-                                <button class="btn btn-danger">Ocultar</button>
-                            </div>
+            <!-- Las secciones se generarán dinámicamente aquí -->
+            <div id="contenidoDinamico"></div>
+        </div>
+
+        <!-- Modal para mostrar la información del título -->
+        <div class="modal fade" id="modalTitulo" tabindex="-1" aria-labelledby="modalTituloLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalTituloLabel">Información del Título</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="detallesTitulo">
+                            <!-- Aquí se mostrará la información del JSON -->
                         </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                     </div>
                 </div>
             </div>
         </div>
+
+        <script src="scripts/sesion.js"></script>
+        <script src="scripts/descripcion.js"></script>
     </body>
 </html>

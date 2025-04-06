@@ -1,25 +1,25 @@
 # MaratON
 ## Jesús Isaac Estrada Ramírez
 
-### * Descripción:
+###* Descripción:
 
 ---
-### * Instrucciones:
+###* Instrucciones:
 
 ---
-### * Mockup:
+###* Mockup:
 ![alt text](/assets/mockup.png "Mockup inicial del proyecto desplegado en la ventana de login e index de nuestro hub de peliculas")
 ---
-### * Capturas de pantalla:
+###* Capturas de pantalla:
 
 ---
-### * ¿Cómo lo hice?
+###* ¿Cómo lo hice?
 
 ---
-### * Errores:
+###* Errores:
 
 ---
-### * Retrospectiva:
-⋅⋅⋅__¿Qué hice bien?__
-⋅⋅⋅__¿Qué no salió bien?__
-⋅⋅⋅__¿Qué puedo hacer diferente?__
+###* Retrospectiva:
+⋅⋅⋅ __¿Qué hice bien?__
+⋅⋅⋅ __¿Qué no salió bien?__
+⋅⋅⋅ __¿Qué puedo hacer diferente?__
