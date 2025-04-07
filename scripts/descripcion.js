@@ -3,7 +3,6 @@ async function cargarDatosDesdeJSON(url) {
     try {
         const response = await fetch(url);
         const data = await response.json();
-        // Aquí procesarías los datos del JSON
         console.log('Datos cargados:', data);
     } catch (error) {
         console.error('Error al cargar los datos:', error);
@@ -13,9 +12,10 @@ async function cargarDatosDesdeJSON(url) {
 // Función para cargar y procesar los datos del JSON
 async function cargarDatos() {
     try {
-        const response = await fetch('database.json');
-        const titulos = await response.json();
-        generarContenido(titulos);
+        if (titulosGlobales.length === 0) {
+            await cargarTitulos();
+        }
+        generarContenido(titulosGlobales);
     } catch (error) {
         console.error('Error al cargar los datos:', error);
     }
@@ -57,15 +57,13 @@ function generarContenido(titulos) {
         // Si el título está oculto, solo se agrega a la sección de ocultos
         if (titulo.oculto) {
             secciones.ocultos.items.push(titulo);
-            return; // Saltamos al siguiente título
+            return;
         }
-
         // Si no está oculto, se agrega a las demás categorías correspondientes
         if (titulo.tendencia) secciones.tendencias.items.push(titulo);
         if (titulo.tipo === 'pelicula') secciones.peliculas.items.push(titulo);
         if (titulo.tipo === 'serie') secciones.series.items.push(titulo);
         if (titulo.favorito) secciones.favoritos.items.push(titulo);
-        
         // Organizar por género
         if (titulo.genero && mapeoGeneros[titulo.genero]) {
             const seccionId = mapeoGeneros[titulo.genero];
@@ -87,7 +85,6 @@ function generarContenido(titulos) {
             `;
         }
     }
-
     contenidoDinamico.innerHTML = html;
 }
 
@@ -105,39 +102,67 @@ function generarCards(items) {
 
 // Función para mostrar la información del título
 function mostrarInformacion(id) {
-    fetch('database.json')
-        .then(response => response.json())
-        .then(titulos => {
-            const titulo = titulos.find(t => t.id === id);
-            const detallesDiv = document.getElementById('detallesTitulo');
-            const modal = new bootstrap.Modal(document.getElementById('modalTitulo'));
-            
-            if (titulo) {
-                detallesDiv.innerHTML = `
-                    <div class="row">
-                        <div class="col-md-4">
-                            <img src="${titulo.src}" class="img-fluid rounded" alt="${titulo.titulo}">
-                        </div>
-                        <div class="col-md-8">
-                            <h4>${titulo.titulo}</h4>
-                            <p><strong>Tipo:</strong> ${titulo.tipo === 'pelicula' ? 'Película' : 'Serie'}</p>
-                            <p><strong>Año:</strong> ${titulo.año}</p>
-                            <p><strong>Género:</strong> ${titulo.genero}</p>
-                            <p><strong>Director:</strong> ${titulo.director}</p>
-                            <p><strong>Duración:</strong> ${titulo.duracion}</p>
-                            <p><strong>Calificación:</strong> ${titulo.calificacion}/5</p>
-                            <p><strong>Actores:</strong> ${titulo.actores.join(', ')}</p>
-                            <p><strong>Descripción:</strong> ${titulo.descripcion}</p>
-                        </div>
+    try {
+        const titulo = titulosGlobales.find(t => t.id === id);
+        const detallesDiv = document.getElementById('detallesTitulo');
+        const modal = new bootstrap.Modal(document.getElementById('modalTitulo'));
+        
+        if (titulo) {
+            detallesDiv.innerHTML = `
+                <div class="row">
+                    <div class="col-md-4">
+                        <img src="${titulo.src}" class="img-fluid rounded" alt="${titulo.titulo}">
                     </div>
-                `;
-            } else {
-                detallesDiv.innerHTML = '<p>No se encontró información del título.</p>';
+                    <div class="col-md-8">
+                        <h4>${titulo.titulo}</h4>
+                        <p><strong>Tipo:</strong> ${titulo.tipo === 'pelicula' ? 'Película' : 'Serie'}</p>
+                        <p><strong>Año:</strong> ${titulo.año}</p>
+                        <p><strong>Género:</strong> ${titulo.genero}</p>
+                        <p><strong>Director:</strong> ${titulo.director}</p>
+                        <p><strong>Duración:</strong> ${titulo.duracion}</p>
+                        <p><strong>Calificación:</strong> ${titulo.calificacion}/5</p>
+                        <p><strong>Actores:</strong> ${titulo.actores.join(', ')}</p>
+                        <p><strong>Descripción:</strong> ${titulo.descripcion}</p>
+                    </div>
+                </div>
+            `;
+
+            // Actualizar los botones
+            const btnFavorito = document.getElementById('btnFavorito');
+            const btnOculto = document.getElementById('btnOculto');
+
+            if (btnFavorito && btnOculto) {
+                // Configurar botón de favorito
+                btnFavorito.textContent = titulo.favorito ? 'Ya no me gusta' : 'Me gusta';
+                btnFavorito.onclick = () => {
+                    toggleFavorito(titulo.id);
+                    // Actualizar visualmente después de modificar el estado
+                    btnFavorito.textContent = titulo.favorito ? 'Ya no me gusta' : 'Me gusta';
+                };
+
+                // Configurar botón de oculto
+                btnOculto.textContent = titulo.oculto ? 'Desocultar' : 'Ocultar';
+                btnOculto.onclick = () => {
+                    toggleOculto(titulo.id);
+                    btnOculto.textContent = titulo.oculto ? 'Desocultar' : 'Ocultar';
+                };
+
+                // Configurar botón de ver (por ahora no hace nada)
+                const btnVer = document.getElementById('btnVer');
+                if (btnVer) {
+                    btnVer.onclick = () => {
+                        // Aquí se implementará la funcionalidad de ver
+                    };
+                }
             }
-            
-            modal.show();
-        })
-        .catch(error => console.error('Error al cargar los detalles:', error));
+        } else {
+            detallesDiv.innerHTML = '<p>No se encontró información del título.</p>';
+        }
+        
+        modal.show();
+    } catch (error) {
+        console.error('Error al mostrar la información:', error);
+    }
 }
 
 // Función para hacer scroll a una sección
@@ -154,7 +179,6 @@ function inicializarNavegacion() {
     document.querySelector('.btn-dark[onclick="scrollToTop()"]').onclick = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
-
     // Botones de navegación
     const botones = ['peliculas', 'series', 'tendencias', 'favoritos'];
     botones.forEach(boton => {
