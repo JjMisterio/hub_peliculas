@@ -14,26 +14,26 @@
     <body>
         <!--Menu principal-->
         <nav class="nav bg-dark justify-content-center p-2">
-            <button class="btn btn-dark mx-2">Inicio</button>
+            <button class="btn btn-dark mx-2" onclick="scrollToTop()">Inicio</button>
             <div class="dropdown">
                 <button class="btn btn-secondary btn-dark mx-2 dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                     Categorias
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">Acción</a>
-                    <a class="dropdown-item" href="#">Comedia</a>
-                    <a class="dropdown-item" href="#">Drama</a>
-                    <a class="dropdown-item" href="#">Terror</a>
-                    <a class="dropdown-item" href="#">Romance</a>
-                    <a class="dropdown-item" href="#">Fantasía</a>
-                    <a class="dropdown-item" href="#">Animación</a>
-                    <a class="dropdown-item" href="#">Musicales</a>
+                    <a class="dropdown-item" href="#" onclick="scrollToSection('accion')">Acción</a>
+                    <a class="dropdown-item" href="#" onclick="scrollToSection('comedia')">Comedia</a>
+                    <a class="dropdown-item" href="#" onclick="scrollToSection('drama')">Drama</a>
+                    <a class="dropdown-item" href="#" onclick="scrollToSection('terror')">Terror</a>
+                    <a class="dropdown-item" href="#" onclick="scrollToSection('romance')">Romance</a>
+                    <a class="dropdown-item" href="#" onclick="scrollToSection('fantasia')">Fantasía</a>
+                    <a class="dropdown-item" href="#" onclick="scrollToSection('animacion')">Animación</a>
+                    <a class="dropdown-item" href="#" onclick="scrollToSection('musicales')">Musicales</a>
                 </div>
             </div>
-            <button class="btn btn-dark mx-2">Peliculas</button>
-            <button class="btn btn-dark mx-2">Series</button>
-            <button class="btn btn-dark mx-2">Tendencias</button>
-            <button class="btn btn-dark mx-2">Favoritos</button>
+            <button class="btn btn-dark mx-2" onclick="scrollToSection('peliculas')">Peliculas</button>
+            <button class="btn btn-dark mx-2" onclick="scrollToSection('series')">Series</button>
+            <button class="btn btn-dark mx-2" onclick="scrollToSection('tendencias')">Tendencias</button>
+            <button class="btn btn-dark mx-2" onclick="scrollToSection('favoritos')">Favoritos</button>
         </nav>
 
         <div class="container mt-4">

@@ -25,20 +25,52 @@ async function cargarDatos() {
 function generarContenido(titulos) {
     const contenidoDinamico = document.getElementById('contenidoDinamico');
     const secciones = {
-        tendencias: { titulo: 'Tendencias', items: [] },
-        peliculas: { titulo: 'Películas', items: [] },
-        series: { titulo: 'Series', items: [] },
-        favoritos: { titulo: 'Favoritos', items: [] },
-        ocultos: { titulo: 'Ocultos', items: [] }
+        tendencias: { titulo: 'Tendencias', items: [], id: 'tendencias' },
+        peliculas: { titulo: 'Películas', items: [], id: 'peliculas' },
+        series: { titulo: 'Series', items: [], id: 'series' },
+        favoritos: { titulo: 'Favoritos', items: [], id: 'favoritos' },
+        accion: { titulo: 'Acción', items: [], id: 'accion' },
+        comedia: { titulo: 'Comedia', items: [], id: 'comedia' },
+        drama: { titulo: 'Drama', items: [], id: 'drama' },
+        terror: { titulo: 'Terror', items: [], id: 'terror' },
+        romance: { titulo: 'Romance', items: [], id: 'romance' },
+        fantasia: { titulo: 'Fantasía', items: [], id: 'fantasia' },
+        animacion: { titulo: 'Animación', items: [], id: 'animacion' },
+        musicales: { titulo: 'Musicales', items: [], id: 'musicales' },
+        ocultos: { titulo: 'Ocultos', items: [], id: 'ocultos' }
+    };
+
+    // Mapeo de géneros a IDs de sección
+    const mapeoGeneros = {
+        'Acción': 'accion',
+        'Comedia': 'comedia',
+        'Drama': 'drama',
+        'Terror': 'terror',
+        'Romance': 'romance',
+        'Fantasía': 'fantasia',
+        'Animación': 'animacion',
+        'Musicales': 'musicales'
     };
 
     // Organizar los títulos por categorías
     titulos.forEach(titulo => {
+        // Si el título está oculto, solo se agrega a la sección de ocultos
+        if (titulo.oculto) {
+            secciones.ocultos.items.push(titulo);
+            return; // Saltamos al siguiente título
+        }
+
+        // Si no está oculto, se agrega a las demás categorías correspondientes
         if (titulo.tendencia) secciones.tendencias.items.push(titulo);
         if (titulo.tipo === 'pelicula') secciones.peliculas.items.push(titulo);
         if (titulo.tipo === 'serie') secciones.series.items.push(titulo);
         if (titulo.favorito) secciones.favoritos.items.push(titulo);
-        if (titulo.oculto) secciones.ocultos.items.push(titulo);
+        
+        // Organizar por género
+        if (titulo.genero && mapeoGeneros[titulo.genero]) {
+            const seccionId = mapeoGeneros[titulo.genero];
+            secciones[seccionId].items.push(titulo);
+        }
     });
 
     // Generar el HTML para cada sección
@@ -46,7 +78,7 @@ function generarContenido(titulos) {
     for (const [key, seccion] of Object.entries(secciones)) {
         if (seccion.items.length > 0) {
             html += `
-                <div class="seccion mb-5">
+                <div class="seccion mb-5" id="${seccion.id}">
                     <h2 class="mb-4">${seccion.titulo}</h2>
                     <div class="row">
                         ${generarCards(seccion.items)}
@@ -96,7 +128,6 @@ function mostrarInformacion(id) {
                             <p><strong>Calificación:</strong> ${titulo.calificacion}/5</p>
                             <p><strong>Actores:</strong> ${titulo.actores.join(', ')}</p>
                             <p><strong>Descripción:</strong> ${titulo.descripcion}</p>
-                            <p><strong>Estado:</strong> ${titulo.oculto ? 'Oculto' : 'Visible'}</p>
                         </div>
                     </div>
                 `;
@@ -109,5 +140,33 @@ function mostrarInformacion(id) {
         .catch(error => console.error('Error al cargar los detalles:', error));
 }
 
+// Función para hacer scroll a una sección
+function scrollToSection(sectionId) {
+    const element = document.getElementById(sectionId);
+    if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
+// Función para inicializar los eventos de navegación
+function inicializarNavegacion() {
+    // Botón Inicio
+    document.querySelector('.btn-dark[onclick="scrollToTop()"]').onclick = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    // Botones de navegación
+    const botones = ['peliculas', 'series', 'tendencias', 'favoritos'];
+    botones.forEach(boton => {
+        const elemento = document.querySelector(`.btn-dark[onclick="scrollToSection('${boton}')"]`);
+        if (elemento) {
+            elemento.onclick = () => scrollToSection(boton);
+        }
+    });
+}
+
 // Cargar los datos cuando se carga la página
-document.addEventListener('DOMContentLoaded', cargarDatos); 
+document.addEventListener('DOMContentLoaded', () => {
+    cargarDatos();
+    inicializarNavegacion();
+}); 

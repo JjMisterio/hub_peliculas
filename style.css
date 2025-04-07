@@ -1,5 +1,15 @@
 body {
     background-color: rgb(66, 68, 70);
+    padding-top: 60px; /* Espacio para el menú fijo */
+}
+
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background-color: #343a40 !important;
 }
 
 .card {
@@ -42,4 +52,28 @@ body {
     max-width: 100%;
     height: auto;
     border-radius: 8px;
+}
+
+.seccion {
+    scroll-margin-top: 60px; /* Espacio para el menú fijo al hacer scroll */
+}
+
+.seccion h2 {
+    color: white;
+    padding-top: 20px;
+    border-bottom: 2px solid #6c757d;
+    margin-bottom: 20px;
+}
+
+.dropdown-menu {
+    background-color: #343a40;
+}
+
+.dropdown-item {
+    color: white;
+}
+
+.dropdown-item:hover {
+    background-color: #495057;
+    color: white;
 }
