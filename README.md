@@ -41,15 +41,15 @@
 ---
 ### Capturas de pantalla
 ![alt text](/assets/proyect/sprint01-01.png "Login simulado: Iniciar sesión")
-Login simulado este es el apartado de inicio de sesión que cuenta con campo de correo/usuario y contraseña, y abajo tiene el botón de iniciar sesión para redirigirte al índex
+- Login simulado este es el apartado de inicio de sesión que cuenta con campo de correo/usuario y contraseña, y abajo tiene el botón de iniciar sesión para redirigirte al índex
 ![alt text](/assets/proyect/sprint01-02.png "Login simulado: Registrarse")
-Login simulado este es el apartado de registrarse el cual cuenta con los campos de nombre, usuario, correo, contraseña y repetir contraseña, además abajo tiene un botón de registrarse que los lleva al apartado de inicio de sesión
+- Login simulado este es el apartado de registrarse el cual cuenta con los campos de nombre, usuario, correo, contraseña y repetir contraseña, además abajo tiene un botón de registrarse que los lleva al apartado de inicio de sesión
 ![alt text](/assets/proyect/sprint01-03.png "Index: Pagina principal")
-Esta es la página principal del proyecto donde él se puede ver una barra superior con distintas opciones ademad de un botón para cerrar la sesión, más abajo se muestran los títulos divididos en categorías que corresponden a las superiores
+- Esta es la página principal del proyecto donde él se puede ver una barra superior con distintas opciones ademad de un botón para cerrar la sesión, más abajo se muestran los títulos divididos en categorías que corresponden a las superiores
 ![alt text](/assets/proyect/sprint01-04.png "Index: Pagina principal, título abierto")
-Dentro de nuestra página principal podemos dar clic a las imágenes de los títulos y estos se abren, permitiendo mostrar los detalles del título, asi como 4 botones inferiores: "ver", "me gusta", "ocultar", "cerrar"; El primero aun no hace nada, el segundo te agrega tu título a favoritos y se cambia de nombre a "ya no me gusta", el siguiente oculta el título, quitándolo de todas las categorías mandándolo al fondo y le cambia el nombre a "desocultar", y el ultimo cierra su información
+- Dentro de nuestra página principal podemos dar clic a las imágenes de los títulos y estos se abren, permitiendo mostrar los detalles del título, asi como 4 botones inferiores: "ver", "me gusta", "ocultar", "cerrar"; El primero aun no hace nada, el segundo te agrega tu título a favoritos y se cambia de nombre a "ya no me gusta", el siguiente oculta el título, quitándolo de todas las categorías mandándolo al fondo y le cambia el nombre a "desocultar", y el ultimo cierra su información
 ![alt text](/assets/proyect/sprint01-05.png "Index: Pagina principal, redireccion")
-Este último apartado nos muestra que la barra superior esta fija al sitio en todo momento, para poder navegar con ella más fácilmente, además de que cada una de las opciones, tanto como la lista de las categorías como los tags, te redirigirán a los apartados de las películas que tengan esa categoría que se busca de manera automática
+- Este último apartado nos muestra que la barra superior esta fija al sitio en todo momento, para poder navegar con ella más fácilmente, además de que cada una de las opciones, tanto como la lista de las categorías como los tags, te redirigirán a los apartados de las películas que tengan esa categoría que se busca de manera automática
 ---
 ### ¿Cómo lo hice?
 El proyecto se desarrolló siguiendo estas etapas:
