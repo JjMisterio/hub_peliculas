@@ -5,3 +5,100 @@ body {
 .card {
     color: #ffffff;
 }
+
+/* Pantallas pequeñas (móviles) */
+@media (max-width: 600px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .card {
+        margin: 0;
+    }
+
+    .card-body {
+        padding: 1.5rem !important;
+    }
+
+    .nav-pills {
+        flex-direction: column;
+    }
+
+    .nav-pills .nav-link {
+        margin-bottom: 0.5rem;
+    }
+
+    .form-outline {
+        margin-bottom: 1rem;
+    }
+
+    .row.mb-4 {
+        flex-direction: column;
+    }
+
+    .col-md-6 {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .btn-block {
+        width: 100%;
+    }
+}
+
+/* Tablets y pantallas medianas */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .container {
+        padding: 2rem;
+    }
+
+    .card {
+        max-width: 90%;
+        margin: 0 auto;
+    }
+
+    .card-body {
+        padding: 2.5rem !important;
+    }
+
+    .form-outline {
+        margin-bottom: 1.5rem;
+    }
+}
+
+/* Pantallas grandes */
+@media (min-width: 1025px) and (max-width: 1440px) {
+    .container {
+        padding: 3rem;
+    }
+
+    .card {
+        max-width: 80%;
+        margin: 0 auto;
+    }
+
+    .card-body {
+        padding: 3rem !important;
+    }
+}
+
+/* Pantallas extra grandes */
+@media (min-width: 1441px) {
+    .container {
+        padding: 4rem;
+        max-width: 1400px;
+    }
+
+    .card {
+        max-width: 70%;
+        margin: 0 auto;
+    }
+
+    .card-body {
+        padding: 4rem !important;
+    }
+
+    .form-outline {
+        margin-bottom: 2rem;
+    }
+}

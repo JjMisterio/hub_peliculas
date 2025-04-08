@@ -77,3 +77,106 @@ body {
     background-color: #495057;
     color: white;
 }
+
+/* Pantallas pequeñas (móviles) */
+@media (max-width: 600px) {
+    .nav {
+        padding: 0.5rem;
+    }
+
+    .d-flex {
+        flex-wrap: wrap;
+    }
+
+    .btn {
+        margin: 0.25rem;
+        font-size: 0.9rem;
+    }
+
+    .dropdown-menu {
+        position: absolute;
+        width: 100%;
+    }
+
+    .card {
+        width: 150px;
+    }
+
+    .card img {
+        height: 225px;
+    }
+
+    .modal-dialog {
+        margin: 0.5rem;
+    }
+
+    .modal-body .row {
+        flex-direction: column;
+    }
+
+    .modal-body .col-md-4,
+    .modal-body .col-md-8 {
+        width: 100%;
+    }
+
+    .modal-body img {
+        margin-bottom: 1rem;
+    }
+}
+
+/* Tablets y pantallas medianas */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .card {
+        width: 180px;
+    }
+
+    .card img {
+        height: 270px;
+    }
+
+    .modal-dialog {
+        max-width: 90%;
+    }
+
+    .modal-body .col-md-4 {
+        width: 40%;
+    }
+
+    .modal-body .col-md-8 {
+        width: 60%;
+    }
+}
+
+/* Pantallas grandes */
+@media (min-width: 1025px) and (max-width: 1440px) {
+    .card {
+        width: 200px;
+    }
+
+    .card img {
+        height: 300px;
+    }
+
+    .modal-dialog {
+        max-width: 80%;
+    }
+}
+
+/* Pantallas extra grandes */
+@media (min-width: 1441px) {
+    .card {
+        width: 220px;
+    }
+
+    .card img {
+        height: 330px;
+    }
+
+    .modal-dialog {
+        max-width: 70%;
+    }
+
+    .container {
+        max-width: 1400px;
+    }
+}
