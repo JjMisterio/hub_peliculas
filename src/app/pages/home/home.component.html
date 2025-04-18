@@ -1,0 +1,44 @@
+<div class="home-container">
+  <h1>Bienvenido a MaratON</h1>
+
+  <section *ngIf="nowPlaying.length">
+    <h2>En Cartelera</h2>
+    <div class="title-grid">
+      <div *ngFor="let title of nowPlaying" class="title-card">
+        <img [src]="getImageUrl(title.poster_path)" [alt]="title.title" />
+        <p>{{ title.title }}</p>
+      </div>
+    </div>
+  </section>
+
+  <section *ngIf="popular.length">
+    <h2>Populares</h2>
+    <div class="title-grid">
+      <div *ngFor="let title of popular" class="title-card">
+        <img [src]="getImageUrl(title.poster_path)" [alt]="title.title" />
+        <p>{{ title.title }}</p>
+      </div>
+    </div>
+  </section>
+
+  <section *ngIf="topRated.length">
+    <h2>Mejor Valoradas</h2>
+    <div class="title-grid">
+      <div *ngFor="let title of topRated" class="title-card">
+        <img [src]="getImageUrl(title.poster_path)" [alt]="title.title" />
+        <p>{{ title.title }}</p>
+      </div>
+    </div>
+  </section>
+
+  <section *ngIf="upcoming.length">
+    <h2>Próximamente</h2>
+    <div class="title-grid">
+      <div *ngFor="let title of upcoming" class="title-card">
+        <img [src]="getImageUrl(title.poster_path)" [alt]="title.title" />
+        <p>{{ title.title }}</p>
+      </div>
+    </div>
+  </section>
+
+</div>
