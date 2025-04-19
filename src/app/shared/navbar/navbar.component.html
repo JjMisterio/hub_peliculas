@@ -1,0 +1,14 @@
+<nav class="navbar">
+    <div class="nav-left" [class.open]="menuOpen">
+        <a class="btn" routerLink="/home" (click)="scrollToFragment('bienvenida'); closeMenu()">MaratON</a>
+        <a class="btn" routerLink="/home" (click)="scrollToFragment('cartelera'); closeMenu()">En Cartelera</a>
+        <a class="btn" routerLink="/home"(click)="scrollToFragment('populares'); closeMenu()">Populares</a>
+        <a class="btn" routerLink="/home" (click)="scrollToFragment('valoradas'); closeMenu()">Mejor Valoradas</a>
+        <a class="btn" routerLink="/home" (click)="scrollToFragment('proximamente'); closeMenu()">Próximamente</a>
+    </div>
+
+    <div class="nav-right">
+        <div class="hamburger" (click)="toggleMenu()">☰</div>
+        <button class="btn logout" (click)="logout()">Cerrar sesión</button>
+    </div>
+</nav>

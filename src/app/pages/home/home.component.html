@@ -1,43 +1,33 @@
-<div class="home-container">
-  <h1>Bienvenido a MaratON</h1>
+<app-navbar></app-navbar>
 
-  <section *ngIf="nowPlaying.length">
+<div class="home-container">
+  <h1 id="bienvenida">Bienvenido a MaratON</h1>
+
+  <section *ngIf="nowPlaying.length" id="cartelera">
     <h2>En Cartelera</h2>
     <div class="title-grid">
-      <div *ngFor="let title of nowPlaying" class="title-card">
-        <img [src]="getImageUrl(title.poster_path)" [alt]="title.title" />
-        <p>{{ title.title }}</p>
-      </div>
+      <app-title-card *ngFor="let title of nowPlaying" [title]="title"></app-title-card>
     </div>
   </section>
 
-  <section *ngIf="popular.length">
+  <section *ngIf="popular.length" id="populares">
     <h2>Populares</h2>
     <div class="title-grid">
-      <div *ngFor="let title of popular" class="title-card">
-        <img [src]="getImageUrl(title.poster_path)" [alt]="title.title" />
-        <p>{{ title.title }}</p>
-      </div>
+      <app-title-card *ngFor="let title of popular" [title]="title"></app-title-card>
     </div>
   </section>
 
-  <section *ngIf="topRated.length">
+  <section *ngIf="topRated.length" id="valoradas">
     <h2>Mejor Valoradas</h2>
     <div class="title-grid">
-      <div *ngFor="let title of topRated" class="title-card">
-        <img [src]="getImageUrl(title.poster_path)" [alt]="title.title" />
-        <p>{{ title.title }}</p>
-      </div>
+      <app-title-card *ngFor="let title of topRated" [title]="title"></app-title-card>
     </div>
   </section>
 
-  <section *ngIf="upcoming.length">
+  <section *ngIf="upcoming.length" id="proximamente">
     <h2>Próximamente</h2>
     <div class="title-grid">
-      <div *ngFor="let title of upcoming" class="title-card">
-        <img [src]="getImageUrl(title.poster_path)" [alt]="title.title" />
-        <p>{{ title.title }}</p>
-      </div>
+      <app-title-card *ngFor="let title of upcoming" [title]="title"></app-title-card>
     </div>
   </section>
 

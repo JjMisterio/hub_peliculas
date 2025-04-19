@@ -22,19 +22,25 @@ export class TitleService {
   }
 
   getNowPlayingTitles(): Observable<Title[]> {
-    return this.fetchTitles('now_playing?language=en-US&page=1');
+    return this.fetchTitles('now_playing?language=es-MX&page=1');
   }
 
   getPopularTitles(): Observable<Title[]> {
-    return this.fetchTitles('popular?language=en-US&page=1');
+    return this.fetchTitles('popular?language=es-MX&page=1');
   }
 
   getTopRatedTitles(): Observable<Title[]> {
-    return this.fetchTitles('top_rated?language=en-US&page=1');
+    return this.fetchTitles('top_rated?language=es-MX&page=1');
   }
 
   getUpcomingTitles(): Observable<Title[]> {
-    return this.fetchTitles('upcoming?language=en-US&page=1');
+    return this.fetchTitles('upcoming?language=es-MX&page=1');
+  }
+
+  getTitleById(id: number): Observable<Title> {
+    const url = `${this.baseUrl}/movie/${id}?language=es-MX`;
+    const params = new HttpParams().set('api_key', this.apiKey);
+    return this.http.get<Title>(url, { params });
   }
 }
 

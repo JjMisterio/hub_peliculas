@@ -1,0 +1,16 @@
+<app-navbar></app-navbar>
+<div *ngIf="title" class="detail-container">
+  <div class="content-wrapper">
+    <img class="backdrop" [src]="getBackdropUrl(title.backdrop_path)" alt="Backdrop">
+    <div class="info">
+      <h1>{{ title.title }}</h1>
+      <p><strong>Estreno:</strong> {{ title.release_date }}</p>
+      <p><strong>Valoración:</strong> {{ title.vote_average }}</p>
+      <p>{{ title.overview }}</p>
+      <div class="buttons">
+        <button class="btn primary">Ver ahora</button>
+        <button class="btn secondary">Agregar a favoritos</button>
+      </div>
+    </div>
+  </div>
+</div>

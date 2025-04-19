@@ -1,0 +1,4 @@
+<a class="card" [routerLink]="['/title', title.id]">
+    <img [src]="getImageUrl(title.poster_path)" [alt]="title.title" />
+    <h3>{{ title.title }}</h3>
+  </a>
