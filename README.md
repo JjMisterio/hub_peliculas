@@ -4,12 +4,20 @@
 ### Descripción
 - Este es el segundo diseño se migro la pagina web del un hub de peliculas, se conecto con la API de TMDB, para tener acceso a informacion de los titulos y ademas se mejoro el diseño general del sitio y se empezo a trabajar el diseño adaptado para dispositivos móviles.
 ---
+### Objetivo
+- Migrar de html, css, javascript nativo a **Angular**
+---
 ### Requerimientos minimos
 - Windows 10
 - Navegador basados o no en Chromium
 - Visual Studio Code
 - Node.js
 - API de TMDB
+---
+### Dependencias
+- **Angular** 19.2.7
+- **Node.Js** 22.14.0
+- **RxJS**    7.8.1
 ---
 ### Instrucciones
 1. Clonar el repositorio:
@@ -42,25 +50,21 @@
    ng serve
    ```
 
-6. Extra:
+6. Ingreso:
    - Ingresa las siguientes credenciales del login simulado para entrar a la app:
    - `admin@maraton.com`
    - `12345678`
+
+7. Usabilidad:
+   - Tienes una barra superior para dirigirte a distintas categorias
+   - Tienes distintos titulos para hacer clic a cada uno de ellos
+   - Obtienes su informacion de cada uno y los botones de "Ver ahora", "Agregar a favoritos" aun no funcionan
+   - Si estan dentro de un titulo, puedes pulsar cualquie boton superior para regresar al home
+   - El boton de cerrar sesion te permite borrar la sesion y regresar al login
 ---
-### Mockup
-![alt text](/assets/mockup.png "Mockup inicial del proyecto desplegado en la ventana de login e index de nuestro hub de peliculas")
----
-### Capturas de pantalla
-![alt text](/assets/sprint02-01.png "Login simulado: Iniciar sesión")
-- Login simulado este es el apartado de inicio de sesión que cuenta con campo de correo/usuario y contraseña, y abajo tiene el botón de iniciar sesión para redirigirte al home
-![alt text](/assets/sprint02-02.png "Login simulado: Registrarse")
-- Login simulado este es el apartado de registrarse el cual cuenta con los campos de nombre, correo, contraseña, además abajo tiene un botón de registrarse que los lleva al apartado de inicio de sesión y si los campos son invalidos al igual que el login los marca de rojo
-![alt text](/assets/sprint02-03.png "Home: Pagina principal")
-- Esta es la página principal del proyecto donde él se puede ver una barra superior con distintas opciones ademad de un botón para cerrar la sesión, más abajo se muestran los títulos divididos en 4 categorías que corresponden a las superiores, que si les damos clic nos llevara a cada categoria
-![alt text](/assets/sprint02-04.png "Title: título abierto")
-- Dentro de nuestra página principal podemos dar clic a las imágenes de los títulos y estos se abren, permitiendo mostrar los detalles del título, asi como 4 botones inferiores: "Ver ahora", "Agregar a favoritos"; Aun no tienen funcion estos botones hasta conectarlos a una base de datos, ademas haciendo clic a los botones de arriba nos llevaran a home
-![alt text](/assets/sprint02-05.png "Title: título abierto, smarthpone")
-- Este último apartado nos muestra que se diseño la primera version de las paginas que tambien se encuentran adaptadas a dispositivos moviles y sigue funcionando con normalidad
+### Captura de pantalla
+![alt text](/assets/sprint02-01.png "Home: Pagina principal")
+- Esta es la página principal del proyecto donde él se puede ver una barra superior con distintas opciones ademad de un botón para cerrar la sesión, más abajo se muestran los títulos divididos en 4 categorías que corresponden a las superiores, que si les damos clic nos llevara a cada categoria.
 ---
 ### ¿Cómo lo hice?
 El proyecto se desarrolló siguiendo estas etapas:
