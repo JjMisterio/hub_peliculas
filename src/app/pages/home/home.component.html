@@ -1,0 +1,34 @@
+<app-navbar></app-navbar>
+
+<div class="home-container">
+  <h1 id="bienvenida">Bienvenido a MaratON</h1>
+
+  <section *ngIf="nowPlaying.length" id="cartelera">
+    <h2>En Cartelera</h2>
+    <div class="title-grid">
+      <app-title-card *ngFor="let title of nowPlaying" [title]="title"></app-title-card>
+    </div>
+  </section>
+
+  <section *ngIf="popular.length" id="populares">
+    <h2>Populares</h2>
+    <div class="title-grid">
+      <app-title-card *ngFor="let title of popular" [title]="title"></app-title-card>
+    </div>
+  </section>
+
+  <section *ngIf="topRated.length" id="valoradas">
+    <h2>Mejor Valoradas</h2>
+    <div class="title-grid">
+      <app-title-card *ngFor="let title of topRated" [title]="title"></app-title-card>
+    </div>
+  </section>
+
+  <section *ngIf="upcoming.length" id="proximamente">
+    <h2>Próximamente</h2>
+    <div class="title-grid">
+      <app-title-card *ngFor="let title of upcoming" [title]="title"></app-title-card>
+    </div>
+  </section>
+
+</div>

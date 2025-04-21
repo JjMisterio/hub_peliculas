@@ -2,12 +2,22 @@
 ## Jesús Isaac Estrada Ramírez
 
 ### Descripción
-- Este es el primer diseño de la pagina web de un hub de peliculas y series que se encuentra dividido en distinas categorias, para su facil extraccion y recuperación del contendio, ademas cuenta con una pequeña descripcion de los titulos y un login de momento simulado.
+- Este es el segundo diseño se migro la pagina web del un hub de peliculas, se conecto con la API de TMDB, para tener acceso a informacion de los titulos y ademas se mejoro el diseño general del sitio y se empezo a trabajar el diseño adaptado para dispositivos móviles.
+---
+### Objetivo
+- Migrar de html, css, javascript nativo a **Angular**
 ---
 ### Requerimientos minimos
 - Windows 10
 - Navegador basados o no en Chromium
 - Visual Studio Code
+- Node.js
+- API de TMDB
+---
+### Dependencias
+- **Angular** 19.2.7
+- **Node.Js** 22.14.0
+- **RxJS**    7.8.1
 ---
 ### Instrucciones
 1. Clonar el repositorio:
@@ -19,57 +29,62 @@
    - Ir a `\hub_peliculas-main`
    - Seleccionar la carpeta del proyecto
 
-3. Instalar la extensión Live Server:
+3. Instalar las dependencias de Node:
    - Abrir VS Code
-   - Ir a Extensiones (Ctrl+Shift+X)
-   - Buscar "Live Server"
-   - Instalar la extensión
-
-4. Configurar el puerto (opcional):
-   - Abrir `.vscode\settings.json`
-   - Modificar el puerto si es necesario:
-   ```json
-   "liveServer.settings.port": 5501
+   - Abrir una terminal (bash)
+   - instalar las dependencias para angular
+   ```bash
+   npm install
    ```
 
+4. Crea tu key para la API de TMDB:
+   - Crea una cuenta en el servicio [TMDB](https://developer.themoviedb.org/reference/intro/getting-started) y obten tu key de la API
+   - EN el proyecto abrir: `src\environments\environment.txt`
+   - Remplaza la terminación de `.txt` a `.ts`
+   - Colocar tu key de TMDB y el url del API v3
+
 5. Iniciar el servidor:
-   - Click derecho en `login.html`
-   - Seleccionar "Open with Live Server"
+   - Abrir una terminal (bash)
+   - Escribir el siguiete comando para inicializar la app
+   ```bash
+   ng serve
+   ```
+
+6. Ingreso:
+   - Ingresa las siguientes credenciales del login simulado para entrar a la app:
+   - `admin@maraton.com`
+   - `12345678`
+
+7. Usabilidad:
+   - Tienes una barra superior para dirigirte a distintas categorias
+   - Tienes distintos titulos para hacer clic a cada uno de ellos
+   - Obtienes su informacion de cada uno y los botones de "Ver ahora", "Agregar a favoritos" aun no funcionan
+   - Si estan dentro de un titulo, puedes pulsar cualquie boton superior para regresar al home
+   - El boton de cerrar sesion te permite borrar la sesion y regresar al login
 ---
-### Mockup
-![alt text](/assets/proyect/mockup.png "Mockup inicial del proyecto desplegado en la ventana de login e index de nuestro hub de peliculas")
----
-### Capturas de pantalla
-![alt text](/assets/proyect/sprint01-01.png "Login simulado: Iniciar sesión")
-- Login simulado este es el apartado de inicio de sesión que cuenta con campo de correo/usuario y contraseña, y abajo tiene el botón de iniciar sesión para redirigirte al índex
-![alt text](/assets/proyect/sprint01-02.png "Login simulado: Registrarse")
-- Login simulado este es el apartado de registrarse el cual cuenta con los campos de nombre, usuario, correo, contraseña y repetir contraseña, además abajo tiene un botón de registrarse que los lleva al apartado de inicio de sesión
-![alt text](/assets/proyect/sprint01-03.png "Index: Pagina principal")
-- Esta es la página principal del proyecto donde él se puede ver una barra superior con distintas opciones ademad de un botón para cerrar la sesión, más abajo se muestran los títulos divididos en categorías que corresponden a las superiores
-![alt text](/assets/proyect/sprint01-04.png "Index: Pagina principal, título abierto")
-- Dentro de nuestra página principal podemos dar clic a las imágenes de los títulos y estos se abren, permitiendo mostrar los detalles del título, asi como 4 botones inferiores: "ver", "me gusta", "ocultar", "cerrar"; El primero aun no hace nada, el segundo te agrega tu título a favoritos y se cambia de nombre a "ya no me gusta", el siguiente oculta el título, quitándolo de todas las categorías mandándolo al fondo y le cambia el nombre a "desocultar", y el ultimo cierra su información
-![alt text](/assets/proyect/sprint01-05.png "Index: Pagina principal, redireccion")
-- Este último apartado nos muestra que la barra superior esta fija al sitio en todo momento, para poder navegar con ella más fácilmente, además de que cada una de las opciones, tanto como la lista de las categorías como los tags, te redirigirán a los apartados de las películas que tengan esa categoría que se busca de manera automática
+### Captura de pantalla
+![alt text](/assets/sprint02-01.png "Home: Pagina principal")
+- Esta es la página principal del proyecto donde él se puede ver una barra superior con distintas opciones ademad de un botón para cerrar la sesión, más abajo se muestran los títulos divididos en 4 categorías que corresponden a las superiores, que si les damos clic nos llevara a cada categoria.
 ---
 ### ¿Cómo lo hice?
 El proyecto se desarrolló siguiendo estas etapas:
-1. Diseño del mockup inicial
-2. Configuración del repositorio en GitHub
-3. Desarrollo de las plantillas HTML (index y login)
-4. Implementación de la lógica de autenticación
-5. Creación del sistema de visualización de títulos
-6. Integración con base de datos de prueba
+1. Se creo un nuevo proyecto en Angular
+2. Se remplazaron los todos los archivos para funcionar en el github
+3. Se generaron los componentes, servicios, modelos y guards
+4. Se conecto con la API de TMDB
+5. Implementación de la lógica para tods estos componentes
+6. Se rediseño la pagina para que tenga un mejor look visual
 7. Pulir el diseño y estilo de la pagina
 ---
 ### Errores
-- El login es simulado, solo verifica que tenga un dato escrito para ingresar
-- La base de datos no se modifica porque esta de manera local
-- El boton de "ver" no hace nada ni redirecciona a ninguna parte
+- El login es simulado, solo verifica las credenciales placeholder
+- Aun no pueden guardar nuevos usuarios para ingresar al sistema
+- El boton de "Ver ahora", "Agregar a favoritos" no tienen funcionamiento
 ---
 ### Retrospectiva
 #### ¿Qué hice bien?
-- Se logro hacer una pagina web funcional prototipo cumpliendo el primer sprint
+- Se logro hacer migrar la pagina web funcional prototipo cumpliendo el segundo sprint
 #### ¿Qué no salió bien?
-- El diseño del sitio web no salio del todo de mi agrado
+- Costo mucho generar y entender el proyecto en angular, para que todo funcionara correctamente
 #### ¿Qué puedo hacer diferente?
-- Dedicarle mas tiempo al diseño y a la planeacion para que todo fluya mas rapido
+- Dedicarle mas tiempo al diseño y a aprender mas a utilizar angular

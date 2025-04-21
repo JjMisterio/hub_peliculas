@@ -1,0 +1,81 @@
+:host {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.navbar {
+    background-color: rgb(52, 58, 64);
+    color: white;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-left {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.nav-right {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.hamburger {
+    cursor: pointer;
+    font-size: 1.5rem;
+    display: none;
+}
+
+.btn {
+    background: rgb(33, 37, 41);;
+    border: none;
+    padding: 0.5rem 1rem;
+    color: white;
+    border-radius: 4px;
+    text-decoration: none;
+    text-align: center;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #555;
+}
+
+.logout {
+    background-color: #e50914;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .nav-left {
+        flex-direction: column;
+        width: 100%;
+        display: none;
+    }
+
+    .nav-left.open {
+        display: flex;
+    }
+
+    .nav-right {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .hamburger {
+        display: block;
+    }
+}

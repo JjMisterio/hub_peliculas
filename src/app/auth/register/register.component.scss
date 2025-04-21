@@ -1,0 +1,112 @@
+.auth-name{
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.login-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    background-color: rgb(66, 68, 70);
+    margin: 0;
+    box-sizing: border-box;
+    position: relative;
+    margin-top: 60px; /* Altura del navbar */
+}
+
+.auth-form-container {
+    background-color: rgb(33, 37, 41);
+    padding: 3rem;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    h1 {
+        color: white;
+        text-align: center;
+        margin-bottom: 2rem;
+        font-size: 2rem;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        width: 100%;
+
+        input {
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #495057;
+            background-color: #212529;
+            color: white;
+            font-size: 1rem;
+            width: 100%;
+            transition: border-color 0.3s ease;
+            box-sizing: border-box;
+
+            &:focus {
+                outline: none;
+                border-color: #0d6efd;
+            }
+
+            &::placeholder {
+                color: #6c757d;
+            }
+        }
+
+        button {
+            padding: 1rem;
+            border-radius: 8px;
+            border: none;
+            background-color: #0d6efd;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            box-sizing: border-box;
+
+            &:hover {
+                background-color: #0b5ed7;
+            }
+
+            &:disabled {
+                background-color: #6c757d;
+                cursor: not-allowed;
+            }
+        }
+    }
+
+    .error {
+        color: #dc3545;
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+        padding: 0.5rem;
+        background-color: rgba(220, 53, 69, 0.1);
+        border-radius: 5px;
+        border-left: 3px solid #dc3545;
+    }
+
+    .switch {
+        text-align: center;
+        color: white;
+        margin-top: 1.5rem;
+
+        a {
+            color: #0d6efd;
+            text-decoration: none;
+            font-weight: bold;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}

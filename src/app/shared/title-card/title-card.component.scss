@@ -1,0 +1,21 @@
+.card {
+    display: block;
+    text-decoration: none;
+    color: white;
+    background-color: #1c1c1c;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+  }
+  .card:hover {
+    transform: scale(1.05);
+  }
+  img {
+    width: 100%;
+    display: block;
+  }
+  h3 {
+    margin: 0.5rem;
+    font-size: 1rem;
+    text-align: center;
+  }

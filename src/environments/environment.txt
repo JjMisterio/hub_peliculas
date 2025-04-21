@@ -1,0 +1,6 @@
+//Remplazar la extensión del archivo ".txt" a ".ts" y cambiar contenido del api
+export const environment = {
+    production: false,
+    tmdbApiKey: 'ADD_KEY_TMDB',
+    tmdbBaseUrl: 'ADD_URL_TMDB_API'
+};
