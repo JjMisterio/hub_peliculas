@@ -1,10 +1,10 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { TitleService } from '../../core/services/title.service';
-import { Title } from '../../core/models/title.model';
+import { TitleService } from '@core/services/title.service';
+import { Title } from '@core/models/title.model';
 import { switchMap } from 'rxjs';
-import { NavbarComponent } from '../../shared/navbar/navbar.component';
+import { NavbarComponent } from '@shared/navbar/navbar.component';
 
 @Component({
   selector: 'app-title-detail',

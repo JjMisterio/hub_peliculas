@@ -1,7 +1,10 @@
+h1 {
+    text-align: center;
+}
 .home-container {
     padding: 2rem;
     color: #fff;
-    background-color: #121212;
+    background-color: rgb(66, 68, 70);
     min-height: 100vh;
     padding-top: calc(2rem + 60px); // 60px es la altura aproximada del navbar
 }

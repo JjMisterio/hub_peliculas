@@ -1,11 +1,16 @@
 <div class="auth-container">
     <div class="auth-form-container">
         <h1 class="auth-name">MaratON</h1>
-        <h1>Inicia Sesión</h1>
-        <form [formGroup]="form" (ngSubmit)="login()">
+        <h1>Crear cuenta</h1>
+        <form [formGroup]="form" (ngSubmit)="register()">
+            <input formControlName="name" placeholder="Nombre completo" />
+            <div class="error" *ngIf="form.get('name')?.invalid && form.get('name')?.touched">
+                Nombre es requerido
+            </div>
+
             <input formControlName="email" placeholder="Correo" type="email" />
             <div class="error" *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
-                Ingresa un correo válido
+                Correo inválido
             </div>
 
             <input formControlName="password" type="password" placeholder="Contraseña" />
@@ -13,9 +18,9 @@
                 Mínimo 8 caracteres
             </div>
 
-            <button type="submit" [disabled]="form.invalid">Entrar</button>
+            <button type="submit" [disabled]="form.invalid">Registrarse</button>
         </form>
         <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
-        <p class="switch">¿No tienes cuenta? <a routerLink="/register">Regístrate aquí</a></p>
+        <p class="switch">¿Ya tienes cuenta? <a routerLink="/login">Inicia sesión</a></p>
     </div>
 </div>

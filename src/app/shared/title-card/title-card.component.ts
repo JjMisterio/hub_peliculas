@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { Title } from '../../core/models/title.model';
+import { Title } from '@core/models/title.model';
 
 @Component({
   selector: 'app-title-card',
