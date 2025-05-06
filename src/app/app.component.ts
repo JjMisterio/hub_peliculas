@@ -10,7 +10,7 @@ import { filter } from 'rxjs/operators';
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
-  title = 'hub_peliculas';
+  title = 'MaratON';
   
   constructor(
     private router: Router,

@@ -3,30 +3,29 @@
 <div class="home-container">
   <h1 id="bienvenida">Bienvenido a MaratON</h1>
 
-  <section *ngIf="nowPlaying.length" id="cartelera">
+  <section *ngIf="nowPlaying$ | async as nowPlaying" id="cartelera">
     <h2>En Cartelera</h2>
-    <div class="title-grid">
-      <app-title-card *ngFor="let title of nowPlaying" [title]="title"></app-title-card>
+    <div class="title-grid" *ngIf="nowPlaying.length > 0"> <app-title-card *ngFor="let title of nowPlaying" [title]="title"></app-title-card>
     </div>
   </section>
 
-  <section *ngIf="popular.length" id="populares">
+  <section *ngIf="popular$ | async as popular" id="populares">
     <h2>Populares</h2>
-    <div class="title-grid">
+    <div class="title-grid" *ngIf="popular.length > 0">
       <app-title-card *ngFor="let title of popular" [title]="title"></app-title-card>
     </div>
   </section>
 
-  <section *ngIf="topRated.length" id="valoradas">
+  <section *ngIf="topRated$ | async as topRated" id="valoradas">
     <h2>Mejor Valoradas</h2>
-    <div class="title-grid">
+    <div class="title-grid" *ngIf="topRated.length > 0">
       <app-title-card *ngFor="let title of topRated" [title]="title"></app-title-card>
     </div>
   </section>
 
-  <section *ngIf="upcoming.length" id="proximamente">
+  <section *ngIf="upcoming$ | async as upcoming" id="proximamente">
     <h2>Próximamente</h2>
-    <div class="title-grid">
+    <div class="title-grid" *ngIf="upcoming.length > 0">
       <app-title-card *ngFor="let title of upcoming" [title]="title"></app-title-card>
     </div>
   </section>

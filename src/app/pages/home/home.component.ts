@@ -4,10 +4,11 @@ import { TitleService } from '@core/services/title.service';
 import { Title } from '@core/models/title.model';
 import { TitleCardComponent } from '@shared/title-card/title-card.component';
 import { NavbarComponent } from '@shared/navbar/navbar.component';
+import { Observable } from 'rxjs';
 
 /**
  * Componente principal que muestra las diferentes categorías de películas
- * Incluye secciones para películas en cartelera, populares, mejor valoradas y próximos estrenos
+ * Utiliza observables para obtener los datos de la API y los pasa a los componentes hijos
  */
 @Component({
   selector: 'app-home',
@@ -18,28 +19,23 @@ import { NavbarComponent } from '@shared/navbar/navbar.component';
 })
 export class HomeComponent implements OnInit {
   private titleService = inject(TitleService);
-  
-  // Arrays para almacenar las diferentes categorías de películas
-  nowPlaying: Title[] = [];
-  popular: Title[] = [];
-  topRated: Title[] = [];
-  upcoming: Title[] = [];
 
   /**
-   * Inicializa el componente cargando las diferentes categorías de películas
+   * Observables para almacenar las diferentes categorías de películas
+   * Se asignan en ngOnInit y se consumen en el template usando el pipe async
+   */
+  nowPlaying$!: Observable<Title[]>;
+  popular$!: Observable<Title[]>;
+  topRated$!: Observable<Title[]>;
+  upcoming$!: Observable<Title[]>;
+
+  /**
+   * Inicializa el componente y asigna los observables de cada categoría
    */
   ngOnInit(): void {
-    this.titleService.getNowPlayingTitles().subscribe((res) => {
-      this.nowPlaying = res;
-    });
-    this.titleService.getPopularTitles().subscribe((res) => {
-      this.popular = res;
-    });
-    this.titleService.getTopRatedTitles().subscribe((res) => {
-      this.topRated = res;
-    });
-    this.titleService.getUpcomingTitles().subscribe((res) => {
-      this.upcoming = res;
-    });
+    this.nowPlaying$ = this.titleService.getNowPlayingTitles();
+    this.popular$ = this.titleService.getPopularTitles();
+    this.topRated$ = this.titleService.getTopRatedTitles();
+    this.upcoming$ = this.titleService.getUpcomingTitles();
   }
 }
