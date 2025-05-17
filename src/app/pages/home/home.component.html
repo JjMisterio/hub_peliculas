@@ -3,31 +3,32 @@
 <div class="home-container">
   <h1 id="bienvenida">Bienvenido a MaratON</h1>
 
-  <section *ngIf="nowPlaying$ | async as nowPlaying" id="cartelera">
-    <h2>En Cartelera</h2>
-    <div class="title-grid" *ngIf="nowPlaying.length > 0"> <app-title-card *ngFor="let title of nowPlaying" [title]="title"></app-title-card>
-    </div>
+  <section *ngIf="(nowPlaying$ | async)?.length" id="cartelera">
+    <app-title-carousel
+        titleSection="En Cartelera"
+        [titles]="nowPlaying$ | async">
+    </app-title-carousel>
   </section>
 
-  <section *ngIf="popular$ | async as popular" id="populares">
-    <h2>Populares</h2>
-    <div class="title-grid" *ngIf="popular.length > 0">
-      <app-title-card *ngFor="let title of popular" [title]="title"></app-title-card>
-    </div>
+  <section *ngIf="(popular$ | async)?.length" id="populares">
+    <app-title-carousel
+        titleSection="Populares"
+        [titles]="popular$ | async">
+    </app-title-carousel>
   </section>
 
-  <section *ngIf="topRated$ | async as topRated" id="valoradas">
-    <h2>Mejor Valoradas</h2>
-    <div class="title-grid" *ngIf="topRated.length > 0">
-      <app-title-card *ngFor="let title of topRated" [title]="title"></app-title-card>
-    </div>
+  <section *ngIf="(topRated$ | async)?.length" id="valoradas">
+    <app-title-carousel
+        titleSection="Mejor Valoradas"
+        [titles]="topRated$ | async">
+    </app-title-carousel>
   </section>
 
-  <section *ngIf="upcoming$ | async as upcoming" id="proximamente">
-    <h2>Próximamente</h2>
-    <div class="title-grid" *ngIf="upcoming.length > 0">
-      <app-title-card *ngFor="let title of upcoming" [title]="title"></app-title-card>
-    </div>
+  <section *ngIf="(upcoming$ | async)?.length" id="proximamente">
+    <app-title-carousel
+        titleSection="Próximamente"
+        [titles]="upcoming$ | async">
+    </app-title-carousel>
   </section>
 
 </div>

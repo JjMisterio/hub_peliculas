@@ -1,0 +1,12 @@
+<div class="carousel-container">
+    <div class="carousel-header">
+        <h2>{{ titleSection }}</h2>
+        <div class="carousel-nav-buttons" *ngIf="titles && titles.length > 5"> <button (click)="scrollLeft()" class="nav-button prev-button" aria-label="Desplazar a la izquierda">&lt;</button>
+            <button (click)="scrollRight()" class="nav-button next-button" aria-label="Desplazar a la derecha">&gt;</button>
+        </div>
+    </div>
+  
+    <div class="carousel-content" #carouselContent>
+        <app-title-card *ngFor="let title of titles; trackBy: trackById" [title]="title"></app-title-card>
+    </div>
+</div>

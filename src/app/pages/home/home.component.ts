@@ -2,8 +2,9 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TitleService } from '@core/services/title.service';
 import { Title } from '@core/models/title.model';
-import { TitleCardComponent } from '@shared/title-card/title-card.component';
+//import { TitleCardComponent } from '@shared/title-card/title-card.component';
 import { NavbarComponent } from '@shared/navbar/navbar.component';
+import { TitleCarouselComponent } from '@shared/title-carousel/title-carousel.component';
 import { Observable } from 'rxjs';
 
 /**
@@ -13,7 +14,7 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, TitleCardComponent, NavbarComponent],
+  imports: [CommonModule, NavbarComponent, TitleCarouselComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
