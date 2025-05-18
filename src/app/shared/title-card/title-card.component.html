@@ -1,4 +1,5 @@
 <a class="card" [routerLink]="['/title', title.id]">
-    <img [src]="getImageUrl(title.poster_path)" [alt]="title.title" />
+    <img [src]="getImageUrl(title.poster_path)" [alt]="title.title" 
+    appImageFallback="assets/images/default-poster.webp" loading="lazy" />
     <h3>{{ title.title }}</h3>
   </a>
