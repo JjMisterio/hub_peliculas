@@ -44,3 +44,5 @@ Thumbs.db
 #Extras
 package-lock.json
 environment.ts
+APIMaraton/obj/
+APIMaraton/bin/
