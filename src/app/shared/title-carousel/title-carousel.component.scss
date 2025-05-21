@@ -1,0 +1,87 @@
+:host {
+    display: block;
+    margin-bottom: 2rem; // Espacio entre carruseles
+}
+  
+.carousel-container {
+    position: relative;
+  
+    .carousel-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+    
+        h2 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: #e0e0e0;
+        }
+    
+        .carousel-nav-buttons {
+            display: flex;
+            gap: 0.5rem;
+    
+            .nav-button {
+                background-color: rgba(40, 40, 40, 0.8);
+                color: white;
+                border: 1px solid rgba(255, 255, 255, 0.3);
+                border-radius: 50%;
+                width: 36px;
+                height: 36px;
+                font-size: 1.2rem;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: background-color 0.2s ease;
+        
+                &:hover {
+                    background-color: rgba(60, 60, 60, 0.9);
+                }
+        
+                &:disabled {
+                    opacity: 0.5;
+                    cursor: not-allowed;
+                }
+            }
+        }
+    }
+    
+    .carousel-content {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        gap: 1rem;
+        padding-bottom: 1rem;
+    
+        &::-webkit-scrollbar {
+            height: 8px; // Altura de la barra de scroll para navegadores WebKit
+        }
+        &::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        &::-webkit-scrollbar-thumb {
+            background-color: rgba(100, 100, 100, 0.5);
+            border-radius: 10px;
+            border: 2px solid transparent;
+            background-clip: content-box;
+        }
+        scrollbar-width: thin;
+        scrollbar-color: rgba(100, 100, 100, 0.5) transparent;
+    
+        // Cada app-title-card dentro del carrusel
+        app-title-card {
+            flex: 0 0 auto;
+            width: 180px;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .carousel-container .carousel-header h2 {
+        font-size: 1.2rem;
+    }
+  }

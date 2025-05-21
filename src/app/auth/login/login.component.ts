@@ -18,6 +18,7 @@ import { AuthService } from '@core/services/auth.service';
 export class LoginComponent {
   form: any;
   errorMessage = '';
+  isLoading = false;
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     // Inicializa el formulario con validaciones para email y contraseña
@@ -33,12 +34,30 @@ export class LoginComponent {
    * Muestra un mensaje de error si las credenciales son incorrectas
    */
   login() {
-    const { email, password } = this.form.value;
-    const success = this.authService.login(email!, password!);
-    if (success) {
-      this.router.navigate(['/home']);
+    if (this.form.valid) {
+      this.isLoading = true;
+      this.errorMessage = '';
+      
+      const { email, password } = this.form.value;
+      
+      this.authService.login(email, password).subscribe({
+        next: (success) => {
+          if (success) {
+            this.router.navigate(['/home']);
+          } else {
+            this.errorMessage = 'Credenciales incorrectas';
+          }
+        },
+        error: (error) => {
+          this.errorMessage = 'Error al iniciar sesión. Por favor, intente nuevamente.';
+          console.error('Error de login:', error);
+        },
+        complete: () => {
+          this.isLoading = false;
+        }
+      });
     } else {
-      this.errorMessage = 'Credenciales incorrectas';
+      this.errorMessage = 'Por favor, complete todos los campos correctamente';
     }
   }
 }

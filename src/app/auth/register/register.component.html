@@ -13,12 +13,30 @@
                 Correo inválido
             </div>
 
-            <input formControlName="password" type="password" placeholder="Contraseña" />
+            <input 
+                formControlName="password" 
+                type="password" 
+                placeholder="Contraseña"
+                autocomplete="new-password" />
             <div class="error" *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
                 Mínimo 8 caracteres
             </div>
 
-            <button type="submit" [disabled]="form.invalid">Registrarse</button>
+            <input 
+                formControlName="confirmPassword" 
+                type="password" 
+                placeholder="Confirmar contraseña"
+                autocomplete="new-password"
+                (paste)="$event.preventDefault()" />
+            <div class="error" *ngIf="form.get('confirmPassword')?.invalid && form.get('confirmPassword')?.touched">
+                <span *ngIf="form.get('confirmPassword')?.errors?.['required']">Confirmar contraseña es requerido</span>
+                <span *ngIf="form.get('confirmPassword')?.errors?.['passwordMismatch']">Las contraseñas no coinciden</span>
+            </div>
+
+            <button type="submit" [disabled]="form.invalid || isLoading">
+                <span *ngIf="!isLoading">Registrarse</span>
+                <span *ngIf="isLoading">Registrando...</span>
+            </button>
         </form>
         <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
         <p class="switch">¿Ya tienes cuenta? <a routerLink="/login">Inicia sesión</a></p>
