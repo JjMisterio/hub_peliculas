@@ -1,20 +1,20 @@
 export interface User {
     idUser: number;
-    userName: string;
-    userEmail: string;
-    dateCreated: Date;
+    name: string;
+    email: string;
+    dateCreation: Date;
     dateModified: Date;
 }
 
 export interface CreateUserDto {
-    userName: string;
-    userEmail: string;
+    name: string;
+    email: string;
     password: string;
 }
 
 export interface UpdateUserDto {
-    userName?: string;
-    userEmail?: string;
+    name?: string;
+    email?: string;
     password?: string;
 }
 
