@@ -3,17 +3,30 @@
         <h1 class="auth-name">MaratON</h1>
         <h1>Inicia Sesión</h1>
         <form [formGroup]="form" (ngSubmit)="login()">
-            <input formControlName="email" placeholder="Correo" type="email" />
+            <input 
+                formControlName="email" 
+                placeholder="Correo" 
+                type="email"
+                [class.is-invalid]="form.get('email')?.invalid && form.get('email')?.touched" />
             <div class="error" *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
-                Ingresa un correo válido
+                <span *ngIf="form.get('email')?.errors?.['required']">El email es requerido</span>
+                <span *ngIf="form.get('email')?.errors?.['email']">Ingresa un correo válido</span>
             </div>
 
-            <input formControlName="password" type="password" placeholder="Contraseña" />
+            <input 
+                formControlName="password" 
+                type="password" 
+                placeholder="Contraseña"
+                [class.is-invalid]="form.get('password')?.invalid && form.get('password')?.touched" />
             <div class="error" *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
-                Mínimo 8 caracteres
+                <span *ngIf="form.get('password')?.errors?.['required']">La contraseña es requerida</span>
+                <span *ngIf="form.get('password')?.errors?.['minlength']">Mínimo 8 caracteres</span>
             </div>
 
-            <button type="submit" [disabled]="form.invalid">Entrar</button>
+            <button type="submit" [disabled]="!form.valid || isLoading">
+                <span *ngIf="!isLoading">Entrar</span>
+                <span *ngIf="isLoading">Cargando...</span>
+            </button>
         </form>
         <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
         <p class="switch">¿No tienes cuenta? <a routerLink="/register">Regístrate aquí</a></p>
