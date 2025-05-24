@@ -4,11 +4,17 @@ using APIMaraton.Data;
 using APIMaraton.Models;
 using System.Threading.Tasks;
 using System.Linq;
+using System.ComponentModel.DataAnnotations;
 
 namespace APIMaraton.Controllers
 {
+    /// <summary>
+    /// Controlador para gestionar las preferencias de películas de los usuarios
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
+    [Produces("application/json")]
+    [Tags("Preferencias de Películas")]
     public class UserMoviePreferencesController : ControllerBase
     {
         private readonly MaratonContext _context;
@@ -18,8 +24,13 @@ namespace APIMaraton.Controllers
             _context = context;
         }
 
-        // GET: api/UserMoviePreferences
+        /// <summary>
+        /// Obtiene todas las preferencias de películas de todos los usuarios
+        /// </summary>
+        /// <returns>Lista de preferencias de películas</returns>
+        /// <response code="200">Retorna la lista de preferencias</response>
         [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<UserMoviePreferenceResponseDto>), StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<UserMoviePreferenceResponseDto>>> GetUserMoviePreferences()
         {
             return await _context.UserMoviePreferences
@@ -38,8 +49,16 @@ namespace APIMaraton.Controllers
                 .ToListAsync();
         }
 
-        // GET: api/UserMoviePreferences/5
+        /// <summary>
+        /// Obtiene una preferencia de película específica
+        /// </summary>
+        /// <param name="id">ID de la preferencia</param>
+        /// <returns>Información de la preferencia</returns>
+        /// <response code="200">Retorna la información de la preferencia</response>
+        /// <response code="404">Preferencia no encontrada</response>
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(UserMoviePreferenceResponseDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<UserMoviePreferenceResponseDto>> GetUserMoviePreference(int id)
         {
             var preference = await _context.UserMoviePreferences
@@ -66,8 +85,14 @@ namespace APIMaraton.Controllers
             return preference;
         }
 
-        // GET: api/UserMoviePreferences/user/5
+        /// <summary>
+        /// Obtiene todas las preferencias de películas de un usuario específico
+        /// </summary>
+        /// <param name="userId">ID del usuario</param>
+        /// <returns>Lista de preferencias del usuario</returns>
+        /// <response code="200">Retorna la lista de preferencias del usuario</response>
         [HttpGet("user/{userId}")]
+        [ProducesResponseType(typeof(IEnumerable<UserMoviePreferenceResponseDto>), StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<UserMoviePreferenceResponseDto>>> GetUserPreferences(int userId)
         {
             return await _context.UserMoviePreferences
@@ -87,8 +112,27 @@ namespace APIMaraton.Controllers
                 .ToListAsync();
         }
 
-        // POST: api/UserMoviePreferences
+        /// <summary>
+        /// Crea una nueva preferencia de película para un usuario
+        /// </summary>
+        /// <param name="preferenceDto">Datos de la preferencia</param>
+        /// <returns>Información de la preferencia creada</returns>
+        /// <response code="201">Preferencia creada exitosamente</response>
+        /// <response code="400">Datos de entrada inválidos o preferencia ya existe</response>
+        /// <remarks>
+        /// Ejemplo de solicitud:
+        /// 
+        ///     POST /api/UserMoviePreferences
+        ///     {
+        ///         "idUser": 1,
+        ///         "idMovieTmdb": 550,
+        ///         "isFavorite": true,
+        ///         "isHidden": false
+        ///     }
+        /// </remarks>
         [HttpPost]
+        [ProducesResponseType(typeof(UserMoviePreferenceResponseDto), StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<UserMoviePreferenceResponseDto>> CreateUserMoviePreference(UserMoviePreferenceDto preferenceDto)
         {
             if (!ModelState.IsValid)
@@ -136,8 +180,30 @@ namespace APIMaraton.Controllers
             };
         }
 
-        // PUT: api/UserMoviePreferences/5
+        /// <summary>
+        /// Actualiza una preferencia de película existente
+        /// </summary>
+        /// <param name="id">ID de la preferencia</param>
+        /// <param name="preferenceDto">Nueva información de la preferencia</param>
+        /// <returns>Sin contenido</returns>
+        /// <response code="204">Preferencia actualizada exitosamente</response>
+        /// <response code="400">Datos de entrada inválidos</response>
+        /// <response code="404">Preferencia no encontrada</response>
+        /// <remarks>
+        /// Ejemplo de solicitud:
+        /// 
+        ///     PUT /api/UserMoviePreferences/1
+        ///     {
+        ///         "idUser": 1,
+        ///         "idMovieTmdb": 550,
+        ///         "isFavorite": false,
+        ///         "isHidden": true
+        ///     }
+        /// </remarks>
         [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateUserMoviePreference(int id, UserMoviePreferenceDto preferenceDto)
         {
             if (!ModelState.IsValid)
@@ -182,8 +248,16 @@ namespace APIMaraton.Controllers
             return NoContent();
         }
 
-        // DELETE: api/UserMoviePreferences/5
+        /// <summary>
+        /// Elimina una preferencia de película
+        /// </summary>
+        /// <param name="id">ID de la preferencia a eliminar</param>
+        /// <returns>Sin contenido</returns>
+        /// <response code="204">Preferencia eliminada exitosamente</response>
+        /// <response code="404">Preferencia no encontrada</response>
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteUserMoviePreference(int id)
         {
             var preference = await _context.UserMoviePreferences.FindAsync(id);
