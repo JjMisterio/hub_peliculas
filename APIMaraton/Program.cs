@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using APIMaraton.Data;
+using APIMaraton.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,14 +15,17 @@ builder.Services.AddDbContext<MaratonContext>(options =>
 builder.Services.AddControllers();
 
 // Configuración de CORS
+var corsSettings = builder.Configuration.GetSection("Cors").Get<CorsSettings>() ?? new CorsSettings 
+{ 
+    AllowedOrigins = new[] { "http://localhost:4200" } 
+};
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngularDevServer",
         builder =>
         {
-            //Esta deberia ser la ip que nos proporciona angular al momento de levantar el server
-            //Si el puerto asignado es diferente deberas remplazarlo por el dado en consola
-            builder.WithOrigins("http://localhost:4200")
+            builder.WithOrigins(corsSettings.AllowedOrigins)
                    .AllowAnyMethod()
                    .AllowAnyHeader()
                    .AllowCredentials();
