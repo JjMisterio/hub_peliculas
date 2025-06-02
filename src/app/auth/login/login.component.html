@@ -1,4 +1,10 @@
 <div class="auth-container">
+    <app-notification-dialog
+        *ngIf="showNotification"
+        [message]="notificationMessage"
+        [type]="notificationType"
+        (close)="onNotificationClose()">
+    </app-notification-dialog>
     <div class="auth-form-container">
         <h1 class="auth-name">MaratON</h1>
         <h1>Inicia Sesión</h1>
@@ -10,7 +16,7 @@
                 [class.is-invalid]="form.get('email')?.invalid && form.get('email')?.touched" />
             <div class="error" *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
                 <span *ngIf="form.get('email')?.errors?.['required']">El email es requerido</span>
-                <span *ngIf="form.get('email')?.errors?.['email']">Ingresa un correo válido</span>
+                <span *ngIf="form.get('email')?.errors?.['email'] || form.get('email')?.errors?.['invalidEmailFormat']">Ingresa un correo válido con dominio y extensión</span>
             </div>
 
             <input 

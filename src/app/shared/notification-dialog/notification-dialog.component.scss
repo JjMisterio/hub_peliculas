@@ -1,0 +1,56 @@
+.notification-dialog {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  min-width: 300px;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  animation: slideIn 0.3s ease-out;
+
+  &.success {
+    background-color: #4caf50;
+    color: white;
+  }
+
+  &.error {
+    background-color: #f44336;
+    color: white;
+  }
+}
+
+.notification-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.message {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0 5px;
+  
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

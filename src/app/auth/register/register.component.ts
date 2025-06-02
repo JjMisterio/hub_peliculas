@@ -4,6 +4,7 @@ import { ReactiveFormsModule, FormBuilder, Validators, AbstractControl, Validati
 import { RouterModule, Router } from '@angular/router';
 import { RegisterService } from '@core/services/register.service';
 import { CreateUserDto } from '@core/models/user.model';
+import { NotificationDialogComponent } from '@shared/notification-dialog/notification-dialog.component';
 
 /**
  * Componente que maneja el registro de nuevos usuarios
@@ -12,7 +13,7 @@ import { CreateUserDto } from '@core/models/user.model';
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, NotificationDialogComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
@@ -20,6 +21,8 @@ export class RegisterComponent {
   form: any;
   errorMessage = '';
   isLoading = false;
+  showNotification = false;
+  notificationMessage = '';
 
   constructor(
     private fb: FormBuilder, 
@@ -29,12 +32,30 @@ export class RegisterComponent {
     // Inicializa el formulario con validaciones para nombre, email y contraseña
     this.form = this.fb.group({
       name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email, this.emailDomainValidator]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', [Validators.required]]
     }, {
       validators: this.passwordMatchValidator
     });
+  }
+
+  /**
+   * Validador personalizado para verificar el formato del correo electrónico
+   * Asegura que el correo tenga un dominio y una extensión válida
+   */
+  private emailDomainValidator(control: AbstractControl): ValidationErrors | null {
+    const email = control.value;
+    if (!email) return null;
+
+    // Expresión regular para validar el formato del correo
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    
+    if (!emailRegex.test(email)) {
+      return { invalidEmailFormat: true };
+    }
+
+    return null;
   }
 
   /**
@@ -71,7 +92,11 @@ export class RegisterComponent {
 
     this.registerService.register(userData).subscribe({
       next: () => {
-        this.router.navigate(['/login']);
+        this.showNotification = true;
+        this.notificationMessage = '¡Registro exitoso!';
+        setTimeout(() => {
+          this.router.navigate(['/login']);
+        }, 2000);
       },
       error: (error) => {
         console.error('Error en registro:', error);
@@ -79,10 +104,15 @@ export class RegisterComponent {
         if (error.error?.message) {
           this.errorMessage = error.error.message;
         }
+        this.isLoading = false;
       },
       complete: () => {
         this.isLoading = false;
       }
     });
+  }
+
+  onNotificationClose() {
+    this.showNotification = false;
   }
 }
