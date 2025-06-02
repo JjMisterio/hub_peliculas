@@ -4,12 +4,28 @@
     <img class="backdrop" [src]="getBackdropUrl(title.backdrop_path)" alt="Backdrop">
     <div class="info">
       <h1>{{ title.title }}</h1>
-      <p><strong>Estreno:</strong> {{ title.release_date }}</p>
-      <p><strong>Valoración:</strong> {{ title.vote_average }}</p>
-      <p>{{ title.overview }}</p>
+      <p class="release-date"><strong>Estreno:</strong> {{ formatDate(title.release_date) }}</p>
+      <div class="rating">
+        <strong>Valoración:</strong>
+        <div class="stars">
+          <span *ngFor="let star of stars" class="star">
+            <i *ngIf="star === 1" class="fas fa-star"></i>
+            <i *ngIf="star === 0.5" class="fas fa-star-half-alt"></i>
+            <i *ngIf="star === 0" class="far fa-star"></i>
+          </span>
+        </div>
+        <span class="rating-number">{{ title.vote_average }}/10</span>
+      </div>
+      <p class="overview">{{ title.overview }}</p>
       <div class="buttons">
-        <button class="btn primary">Ver ahora</button>
-        <button class="btn secondary">Agregar a favoritos</button>
+        <button class="btn secondary" (click)="toggleFavorite()">
+          <i class="fas" [class.fa-heart]="!isFavorite" [class.fa-heart-broken]="isFavorite"></i>
+          {{ isFavorite ? 'Quitar de favoritos' : 'Agregar a favoritos' }}
+        </button>
+        <button class="btn tertiary" (click)="toggleHidden()">
+          <i class="fas" [class.fa-eye-slash]="!isHidden" [class.fa-eye]="isHidden"></i>
+          {{ isHidden ? 'Desocultar' : 'Ocultar' }}
+        </button>
       </div>
     </div>
   </div>

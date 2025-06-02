@@ -1,5 +1,5 @@
 .detail-container {
-    background-color: rgb(66, 68, 70);;
+    background-color: rgb(66, 68, 70);
     color: white;
     min-height: 100vh;
     box-sizing: border-box;
@@ -8,6 +8,7 @@
     justify-content: center;
     padding: 2rem;
 }
+
 .content-wrapper {
     display: flex;
     flex-direction: column;
@@ -15,35 +16,106 @@
     max-width: 1200px;
     width: 100%;
 }
+
 .backdrop {
     width: 100%;
     border-radius: 10px;
     object-fit: cover;
     max-height: 300px;
 }
+
 .info {
     text-align: center;
+
+    h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+
+    .release-date {
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+    .overview {
+        text-align: justify;
+        margin: 1.5rem 0;
+        line-height: 1.6;
+    }
 }
+
+.rating {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+
+    .stars {
+        display: flex;
+        gap: 0.25rem;
+    }
+
+    .star {
+        color: #ffd700;
+        font-size: 1.2rem;
+    }
+
+    .rating-number {
+        color: #ffd700;
+        font-weight: bold;
+    }
+}
+
 .buttons {
     margin-top: 1.5rem;
     display: flex;
     justify-content: center;
     gap: 1rem;
 }
+
 .btn {
     padding: 0.75rem 1.5rem;
     font-size: 1rem;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    i {
+        font-size: 1.1rem;
+    }
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
 }
-.btn.primary {
+
+.btn.secondary {
     background-color: #e50914;
     color: white;
+
+    &:hover {
+        background-color: #f40612;
+    }
 }
-.btn.secondary {
+
+.btn.tertiary {
     background-color: #333;
     color: white;
+
+    &:hover {
+        background-color: #444;
+    }
 }
 
 @media (min-width: 768px) {
@@ -60,6 +132,17 @@
         flex: 1;
         text-align: left;
         padding-left: 2rem;
+
+        h1, .release-date {
+            text-align: left;
+        }
+
+        .overview {
+            text-align: justify;
+        }
+    }
+    .rating {
+        justify-content: flex-start;
     }
     .buttons {
         justify-content: flex-start;
