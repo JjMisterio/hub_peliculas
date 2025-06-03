@@ -59,12 +59,14 @@ export class LoginComponent {
     if (this.form.valid) {
       this.isLoading = true;
       this.errorMessage = '';
+      this.showNotification = false;
       
       const { email, password } = this.form.value;
       
       this.authService.login(email, password).subscribe({
         next: (response) => {
           if (response) {
+            this.isLoading = false;
             this.showNotification = true;
             this.notificationMessage = '¡Inicio de sesión exitoso!';
             this.notificationType = 'success';
@@ -72,17 +74,17 @@ export class LoginComponent {
               this.router.navigate(['/home']);
             }, 2000);
           } else {
+            this.isLoading = false;
             this.showNotification = true;
             this.notificationMessage = 'Credenciales incorrectas';
             this.notificationType = 'error';
-            this.isLoading = false;
           }
         },
         error: (error) => {
+          this.isLoading = false;
           this.showNotification = true;
           this.notificationMessage = error.error?.message || 'Error al iniciar sesión';
           this.notificationType = 'error';
-          this.isLoading = false;
         }
       });
     } else {
