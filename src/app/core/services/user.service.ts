@@ -3,12 +3,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '@environments/environment';
 import { User, CreateUserDto, UpdateUserDto, LoginDto } from '../models/user.model';
+import { AuthResponse } from '../models/auth-response.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = `${environment.apiUrl}/Users`;
+  private apiUrl = `${environment.apiUrl}/users`;
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
@@ -38,8 +39,8 @@ export class UserService {
   }
 
   // Actualizar un usuario existente
-  updateUser(id: number, user: UpdateUserDto): Observable<void> {
-    return this.http.put<void>(`${this.apiUrl}/${id}`, user, this.httpOptions);
+  updateUser(id: number, user: User): Observable<User> {
+    return this.http.put<User>(`${this.apiUrl}/${id}`, user);
   }
 
   // Eliminar un usuario
@@ -48,9 +49,8 @@ export class UserService {
   }
 
   // Login de usuario
-  login(credentials: LoginDto): Observable<User> {
-    //console.log('Enviando credenciales:', credentials); // Para debug
-    return this.http.post<User>(`${this.apiUrl}/login`, credentials, this.httpOptions);
+  login(credentials: { email: string; password: string }): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, credentials);
   }
 
   // Verificar si un email ya está registrado
@@ -71,5 +71,15 @@ export class UserService {
         }
       );
     });
+  }
+
+  // Registrar un nuevo usuario
+  register(user: User): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.apiUrl}/register`, user);
+  }
+
+  // Obtener el usuario actual
+  getCurrentUser(): Observable<User> {
+    return this.http.get<User>(`${this.apiUrl}/me`);
   }
 } 

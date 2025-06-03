@@ -19,10 +19,12 @@ namespace APIMaraton.Controllers
     public class UsersController : ControllerBase
     {
         private readonly MaratonContext _context;
+        private readonly AuthService _authService;
 
-        public UsersController(MaratonContext context)
+        public UsersController(MaratonContext context, AuthService authService)
         {
             _context = context;
+            _authService = authService;
         }
 
         /// <summary>
@@ -43,10 +45,10 @@ namespace APIMaraton.Controllers
         ///     }
         /// </remarks>
         [HttpPost("login")]
-        [ProducesResponseType(typeof(UserResponseDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AuthResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<UserResponseDto>> Login(LoginDto loginDto)
+        public async Task<ActionResult<AuthResponse>> Login(LoginDto loginDto)
         {
             if (!ModelState.IsValid)
             {
@@ -66,12 +68,18 @@ namespace APIMaraton.Controllers
                 return Unauthorized("Credenciales inválidas");
             }
 
-            return new UserResponseDto
+            var token = _authService.GenerateJwtToken(user);
+
+            return new AuthResponse
             {
-                IdUser = user.IdUser,
-                Name = user.Name,
-                Email = user.Email,
-                DateCreation = user.DateCreation
+                User = new UserResponseDto
+                {
+                    IdUser = user.IdUser,
+                    Name = user.Name,
+                    Email = user.Email,
+                    DateCreation = user.DateCreation
+                },
+                Token = token
             };
         }
 
