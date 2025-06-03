@@ -11,7 +11,6 @@ import { isPlatformBrowser } from '@angular/common';
  */
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private SESSION_DURATION = 7 * 24 * 60 * 60 * 1000; // 1 semana
   private currentUser: User | null = null;
   private isBrowser: boolean;
 
@@ -36,15 +35,13 @@ export class AuthService {
    */
   login(email: string, password: string): Observable<boolean> {
     return this.userService.login({ email, password }).pipe(
-      map(user => {
-        if (user) {
-          this.currentUser = user;
-          const expiration = Date.now() + this.SESSION_DURATION;
+      map(response => {
+        if (response && response.token) {
+          this.currentUser = response.user;
           
           if (this.isBrowser) {
-            localStorage.setItem('currentUser', JSON.stringify(user));
-            localStorage.setItem('isLoggedIn', 'true');
-            localStorage.setItem('sessionExpires', expiration.toString());
+            localStorage.setItem('currentUser', JSON.stringify(response.user));
+            localStorage.setItem('token', response.token);
           }
           
           return true;
@@ -71,25 +68,27 @@ export class AuthService {
     this.currentUser = null;
     if (this.isBrowser) {
       localStorage.removeItem('currentUser');
-      localStorage.removeItem('isLoggedIn');
-      localStorage.removeItem('sessionExpires');
+      localStorage.removeItem('token');
     }
   }
 
   /**
    * Verifica si el usuario está autenticado
-   * Comprueba el estado de autenticación y la expiración de la sesión
+   * Comprueba la existencia del token y su validez
    * @returns boolean - true si el usuario está autenticado, false en caso contrario
    */
   isLoggedIn(): boolean {
     if (!this.isBrowser) return false;
-    
-    const expires = parseInt(localStorage.getItem('sessionExpires') || '0', 10);
-    if (Date.now() > expires) {
-      this.logout();
-      return false;
-    }
-    return localStorage.getItem('isLoggedIn') === 'true';
+    return !!localStorage.getItem('token');
+  }
+
+  /**
+   * Obtiene el token de autenticación
+   * @returns string | null - El token JWT o null si no hay sesión activa
+   */
+  getToken(): string | null {
+    if (!this.isBrowser) return null;
+    return localStorage.getItem('token');
   }
 
   /**

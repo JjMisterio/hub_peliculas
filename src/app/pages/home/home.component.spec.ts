@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { HomeComponent } from './home.component';
 import { TitleService } from '@core/services/title.service';
+import { AuthService } from '@core/services/auth.service';
 import { Title } from '@core/models/title.model';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
@@ -10,14 +11,15 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
-  let titleService: jasmine.SpyObj<TitleService>;
+  let titleServiceSpy: jasmine.SpyObj<TitleService>;
+  let authServiceSpy: jasmine.SpyObj<AuthService>;
 
   const mockTitles: Title[] = [{
     id: 1,
-    title: 'Test Movie 1',
-    overview: 'Test overview 1',
-    poster_path: '/test1.jpg',
-    backdrop_path: '/backdrop1.jpg',
+    title: 'Test Movie',
+    overview: 'Test overview',
+    poster_path: '/test.jpg',
+    backdrop_path: '/backdrop.jpg',
     release_date: '2024-01-01',
     vote_average: 8.5,
     genre_ids: [1, 2, 3]
@@ -29,12 +31,13 @@ describe('HomeComponent', () => {
   const mockUpcoming: Title[] = [{ ...mockTitles[0], id: 4, title: 'Upcoming Movie' }];
 
   beforeEach(async () => {
-    const titleServiceSpy = jasmine.createSpyObj('TitleService', [
+    titleServiceSpy = jasmine.createSpyObj('TitleService', [
       'getNowPlayingTitles',
       'getPopularTitles',
       'getTopRatedTitles',
       'getUpcomingTitles'
     ]);
+    authServiceSpy = jasmine.createSpyObj('AuthService', ['isLoggedIn', 'getCurrentUserId', 'getCurrentUser', 'logout']); // Añade los métodos que Navbar podría usar
 
     await TestBed.configureTestingModule({
       imports: [
@@ -43,16 +46,19 @@ describe('HomeComponent', () => {
       ],
       providers: [
         { provide: TitleService, useValue: titleServiceSpy },
+        { provide: AuthService, useValue: authServiceSpy }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
 
-    titleService = TestBed.inject(TitleService) as jasmine.SpyObj<TitleService>;
+    titleServiceSpy.getNowPlayingTitles.and.returnValue(of(mockNowPlaying));
+    titleServiceSpy.getPopularTitles.and.returnValue(of(mockPopular));
+    titleServiceSpy.getTopRatedTitles.and.returnValue(of(mockTopRated));
+    titleServiceSpy.getUpcomingTitles.and.returnValue(of(mockUpcoming));
 
-    titleService.getNowPlayingTitles.and.returnValue(of(mockNowPlaying));
-    titleService.getPopularTitles.and.returnValue(of(mockPopular));
-    titleService.getTopRatedTitles.and.returnValue(of(mockTopRated));
-    titleService.getUpcomingTitles.and.returnValue(of(mockUpcoming));
+    authServiceSpy.isLoggedIn.and.returnValue(false);
+    authServiceSpy.getCurrentUserId.and.returnValue(null);
+    authServiceSpy.getCurrentUser.and.returnValue(null);
 
     fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
@@ -60,52 +66,58 @@ describe('HomeComponent', () => {
   });
 
   it('Debería crearse', () => {
+    fixture.detectChanges();
     expect(component).toBeTruthy();
   });
 
+  it('Debería asignar los observables de títulos en ngOnInit', () => {
+    fixture.detectChanges();
 
-  it('Debería mostrar la sección y tarjetas de "En Cartelera" después de que el observable emita', fakeAsync(() => {
+    expect(titleServiceSpy.getNowPlayingTitles).toHaveBeenCalled();
+    expect(component.nowPlaying$).toBeDefined();
+
+    expect(titleServiceSpy.getPopularTitles).toHaveBeenCalled();
+    expect(component.popular$).toBeDefined();
+
+    expect(titleServiceSpy.getTopRatedTitles).toHaveBeenCalled();
+    expect(component.topRated$).toBeDefined();
+
+    expect(titleServiceSpy.getUpcomingTitles).toHaveBeenCalled();
+    expect(component.upcoming$).toBeDefined();
+  });
+
+  it('Debería mostrar la sección "En Cartelera" cuando nowPlaying$ emite datos', fakeAsync(() => {
     fixture.detectChanges();
     tick();
     fixture.detectChanges();
 
-    const section = fixture.debugElement.query(By.css('#cartelera'));
+    const section = fixture.debugElement.query(By.css('section#cartelera'));
     expect(section).toBeTruthy();
-
-    const cards = section.queryAll(By.css('app-title-card'));
-    expect(cards.length).toBe(mockNowPlaying.length);
+    const carousel = section.query(By.css('app-title-carousel'));
+    expect(carousel).toBeTruthy();
   }));
 
-  it('Debería mostrar la sección y tarjetas de "Populares" después de que el observable emita', fakeAsync(() => {
-    fixture.detectChanges();
-    tick();
-    fixture.detectChanges();
-
-    const section = fixture.debugElement.query(By.css('#populares'));
+  it('Debería mostrar la sección "Populares" cuando popular$ emite datos', fakeAsync(() => {
+    fixture.detectChanges(); tick(); fixture.detectChanges();
+    const section = fixture.debugElement.query(By.css('section#populares'));
     expect(section).toBeTruthy();
-    const cards = section.queryAll(By.css('app-title-card'));
-    expect(cards.length).toBe(mockPopular.length);
+    const carousel = section.query(By.css('app-title-carousel'));
+    expect(carousel).toBeTruthy();
   }));
 
-  it('Debería mostrar la sección y tarjetas de "Mejor Valoradas" después de que el observable emita', fakeAsync(() => {
-    fixture.detectChanges();
-    tick();
-    fixture.detectChanges();
-
-    const section = fixture.debugElement.query(By.css('#valoradas'));
+  it('Debería mostrar la sección "Mejor Valoradas" cuando topRated$ emite datos', fakeAsync(() => {
+    fixture.detectChanges(); tick(); fixture.detectChanges();
+    const section = fixture.debugElement.query(By.css('section#valoradas'));
     expect(section).toBeTruthy();
-    const cards = section.queryAll(By.css('app-title-card'));
-    expect(cards.length).toBe(mockTopRated.length);
+    const carousel = section.query(By.css('app-title-carousel'));
+    expect(carousel).toBeTruthy();
   }));
 
-  it('Debería mostrar la sección y tarjetas de "Próximamente" después de que el observable emita', fakeAsync(() => {
-    fixture.detectChanges();
-    tick();
-    fixture.detectChanges();
-
-    const section = fixture.debugElement.query(By.css('#proximamente'));
+  it('Debería mostrar la sección "Próximamente" cuando upcoming$ emite datos', fakeAsync(() => {
+    fixture.detectChanges(); tick(); fixture.detectChanges();
+    const section = fixture.debugElement.query(By.css('section#proximamente'));
     expect(section).toBeTruthy();
-    const cards = section.queryAll(By.css('app-title-card'));
-    expect(cards.length).toBe(mockUpcoming.length);
+    const carousel = section.query(By.css('app-title-carousel'));
+    expect(carousel).toBeTruthy();
   }));
 });

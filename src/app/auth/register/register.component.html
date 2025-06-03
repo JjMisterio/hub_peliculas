@@ -1,4 +1,10 @@
 <div class="auth-container">
+    <app-notification-dialog
+        *ngIf="showNotification"
+        [message]="notificationMessage"
+        type="success"
+        (close)="onNotificationClose()">
+    </app-notification-dialog>
     <div class="auth-form-container">
         <h1 class="auth-name">MaratON</h1>
         <h1>Crear cuenta</h1>
@@ -10,7 +16,8 @@
 
             <input formControlName="email" placeholder="Correo" type="email" />
             <div class="error" *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
-                Correo inválido
+                <span *ngIf="form.get('email')?.errors?.['required']">El email es requerido</span>
+                <span *ngIf="form.get('email')?.errors?.['email'] || form.get('email')?.errors?.['invalidEmailFormat']">Ingresa un correo válido con dominio y extensión (ejemplo&#64;dominio.com)</span>
             </div>
 
             <input 
