@@ -2,10 +2,10 @@
 ## Jesús Isaac Estrada Ramírez
 
 ### Descripción
-- Este es el quinto entregable del proyecto, en esta parte se trabajó principalmente en el funcionamiento interno de la aplicación, con mejoras de la api, su documentación, algunos cambios estéticos y la conexión completa con nuestra aplicación de angular.
+- Este es el sexto entregable del proyecto, en esta parte se trabajó principalmente en añadir la compatibilidad a nuestro proyecto para que ahora tambien pueda ser ejecutado mediante un servicio de contenedores como lo es docker.
 ---
 ### Objetivo
-- Implementar por completo la API en el proyecto.
+- Implementar funcionalidad del proyecto con docker.
 ---
 ### Requerimientos minimos
 - Windows 10
@@ -17,6 +17,7 @@
 - .NET 9.0 Runtime
 - SQL Server 2022 Developer
 - SQL Server Management Studio
+- Docker Desktop 28.1.1
 ---
 ### Dependencias
 - **Angular** 19.2.7
@@ -29,7 +30,7 @@
 - **Microsoft.EntityFrameworkCore.SqlServer** 9.0.5
 - **Swashbuckle.AspNetCore** 8.1.1
 ---
-### Instrucciones
+### Instrucciones Correr nativo + Configuración + Usabilidad
 1. Clonar el repositorio:
    ```bash
    git clone https://github.com/JjMisterio/hub_peliculas.git
@@ -121,6 +122,42 @@
    ```
    - EN el proyecto abrir el archivo que se acaba de generar: `coverage\hub_peliculas\index.html`
 ---
+### Instrucciones Correr (Para Docker)
+1. Clonar el repositorio:
+   ```bash
+   git clone https://github.com/JjMisterio/hub_peliculas.git
+   ```
+2. Configurar el Entorno de Angular:
+   - Crea o modifica el archivo `src/environments/environment.prod.ts`
+   - El contendio es similar a la plantilla de `environment.txt` de la misma carpeta
+3. Configurar la Contraseña de la Base de Datos:
+   - Abre el archivo `docker-compose.yml` que se encuentra en la raíz del proyecto
+   - Busca la sección del servicio `db` y crea una contraseña del usuario `sa` en la variable `SA_PASSWORD`
+4. Construir y Levantar los Contenedores:
+   - Abre una terminal en la raíz del proyecto.
+   - Ejecuta el siguiente comando para construir las imágenes y levantar los contenedores:
+   ```bash
+   docker-compose up --build
+   ```
+5. Crear las Tablas de la Base de Datos:
+   - Abre SQL Server Management Studio y conéctate al servidor con las siguientes credenciales:
+      - Server name: `localhost,1433`
+      - Authentication: `SQL Server Authentication`
+      - Login: `sa`
+      - Password: La contraseña que estableciste en el paso 3.
+   - Una vez conectado, abre y ejecuta el script ubicado en `Database T-SQL/Create-maraton.sql` para crear todas las tablas necesarias
+6. Acceder a la Aplicación:
+   - Abre tu navegador y ve a la siguiente dirección:
+   ```
+   http://localhost:4200
+   ```
+7. Detener la Aplicación:
+   - Para detener todos los contenedores, regresa a la terminal y presiona `Ctrl + C`
+   - O abre una nueva terminal en la misma carpeta y ejecuta:
+   ```bash
+   docker-compose down
+   ```
+---
 ### Mockup
 ![alt text](/assets/mockup.png "Mockup inicial del proyecto desplegado en la ventana de login e index de nuestro hub de peliculas")
 ---
@@ -153,25 +190,23 @@
 ---
 ### ¿Cómo lo hice?
 El proyecto se desarrolló siguiendo estas etapas:
-1. Se comenzó por documentar la API, con la información que teníamos hasta el momento
-2. Después se trabajó en las nuevas características visuales de este sprint
-3. Se cambio partes del funcionamiento de la api, para utilizar tokens de jwt y se reacomodaron los cors
-4. Se implemento lo que faltaba de la api para guardar las preferencias de los usuarios
-5. Se reorganizo el login para que aceptara los tokens de inicio de sesión, además a agregar algunos mecanismos de seguridad extra en el front
-6. Con una base sólida se implementaron nuevos test para la mayor parte del proyecto de angular
+1. Se crearon los archivos de Dockerfile y .dockerignore para crear los contenedores del back y front
+2. Se ajusto la información sensible del programa para que pueda correr en docker
+3. Se agrego el archivo de nginx.config para que corriera la app de angular
+4. Se creo el archivo de docker-compose.yml para crear y ejecutar las imágenes de nuestro proyecto
+5. Se probo de que todo funcionara y se afinaron detalles menores
 ---
 ### Mejoras futuras
-- Agregar más cosas útiles al proyecto para que se note un progreso entre cada entregable
-- No dejar los test para último momento
-- Poderle dedicar más tiempo a desarrollar los entregables del proyecto
+- Agregar más funcionalidades al proyecto
+- Agregar migraciones en la API
 ---
 ### Errores
-- El testing del proyecto no alcanza el 100% y quedaron algunos test sin funcionar
+- La app no se funciona por si sola con docker al menos de que cargres primero la base de datos de manera manual
 ---
 ### Retrospectiva
 #### ¿Qué hice bien?
-- Se logro conectar el proyecto con la api, en las partes faltantes y todos los detalles implementados se cuidaron al máximo
+- Se logro correr los contenedores de la aplicacion en docker de manera satisfactoria
 #### ¿Qué no salió bien?
-- Algunos test no los pude solucionar y quedaron como pendientes
+- La aplicacion al levantarse directo con docker aun no esta lista para funcionar hasta que no se cargue la base de datos
 #### ¿Qué puedo hacer diferente?
-- Dedicarle más tiempo a todas las actividades que se realizan relacionadas con este proyecto para entregar un mejor resultado
+- Agregar las migraciones a la API para que no tengamos problemas al volver a levantar la API en docker
