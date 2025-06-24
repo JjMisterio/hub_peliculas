@@ -1,0 +1,5 @@
+# hub_peliculas/.dockerignore
+/dist
+/node_modules
+.DS_Store
+.vscode/
