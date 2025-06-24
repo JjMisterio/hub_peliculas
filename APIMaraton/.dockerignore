@@ -1,0 +1,5 @@
+# APIMaraton/.dockerignore
+**/bin/
+**/obj/
+.vs/
+.vscode/

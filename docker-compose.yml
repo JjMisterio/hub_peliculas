@@ -1,0 +1,42 @@
+# docker-compose.yml
+version: '3.8'
+
+services:
+  # Servicio de la Base de Datos SQL Server
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: maraton-db
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "" # CAMBIA ESTO por una contraseña
+    ports:
+      - "1433:1433" # Expone el puerto de SQL Server a tu máquina local
+    volumes:
+      - maraton-db-data:/var/opt/mssql # Persiste los datos de la BD
+
+  # Servicio de la API de C# (.NET)
+  api:
+    container_name: maraton-api
+    build:
+      context: ./APIMaraton # Ruta a la carpeta de tu API
+      dockerfile: Dockerfile
+    ports:
+      - "5000:8080" # Expone el puerto 8080 del contenedor al puerto 5000 de tu máquina
+    environment:
+      - ConnectionStrings__MaratonDatabase=Server=db;Database=maraton;User Id=sa;Password=;TrustServerCertificate=True; #Agregar la contraseña creada para la base de datos "Password="
+    depends_on:
+      - db # La API no se iniciará hasta que el contenedor de la BD esté listo
+
+  # Servicio del Frontend de Angular
+  frontend:
+    container_name: maraton-frontend
+    build:
+      context: . # Ruta a la carpeta de tu app Angular
+      dockerfile: Dockerfile
+    ports:
+      - "4200:80" # Expone el puerto 80 de Nginx al puerto 4200 de tu máquina
+    depends_on:
+      - api # El frontend no se iniciará hasta que la API esté lista
+
+volumes:
+  maraton-db-data: # Define el volumen para la persistencia de datos
